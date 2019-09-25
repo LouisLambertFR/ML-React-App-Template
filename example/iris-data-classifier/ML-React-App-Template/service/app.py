@@ -7,24 +7,18 @@ import sys
 flask_app = Flask(__name__)
 app = Api(app = flask_app, 
 		  version = "1.0", 
-		  title = "Iris Plant identifier", 
-		  description = "Predict the type of iris plant")
+		  title = "Automated Home Valuation", 
+		  description = "Predict the price of Homes")
 
 name_space = app.namespace('prediction', description='Prediction APIs')
 
 model = app.model('Prediction params', 
-				  {'sepalLength': fields.Float(required = True, 
-				  							   description="Sepal Length", 
-    					  				 	   help="Sepal Length cannot be blank"),
-				  'sepalWidth': fields.Float(required = True, 
-				  							   description="Sepal Width", 
-    					  				 	   help="Sepal Width cannot be blank"),
-				  'petalLength': fields.Float(required = True, 
-				  							description="Petal Length", 
-    					  				 	help="Petal Length cannot be blank"),
-				  'petalWidth': fields.Float(required = True, 
-				  							description="Petal Width", 
-    					  				 	help="Petal Width cannot be blank")})
+				  {'Surfacereellebati': fields.Float(required = True, 
+							       				description="Surface reelle bati",
+    					  				 	   help="Surface reelle bati cannot be blank"),
+				  'Nombrepiecesprincipales': fields.Float(required = True, 
+				  							description="Nombre pieces principales", 
+    					  				 	   help="Nombre pieces principales cannot be blank")})
 
 regressor = joblib.load('regressor.joblib')
 
@@ -48,7 +42,7 @@ class MainClass(Resource):
 			response = jsonify({
 				"statusCode": 200,
 				"status": "Prediction made",
-				"result": "The type of iris plant is: " + types[prediction[0]]
+				"result": "The price of your home is: " + types[prediction[0]]
 				})
 			response.headers.add('Access-Control-Allow-Origin', '*')
 			return response
