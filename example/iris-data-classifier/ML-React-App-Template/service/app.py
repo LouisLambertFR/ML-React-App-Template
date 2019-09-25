@@ -26,7 +26,7 @@ model = app.model('Prediction params',
 				  							description="Petal Width", 
     					  				 	help="Petal Width cannot be blank")})
 
-classifier = joblib.load('classifier.joblib')
+regressor = joblib.load('regressor.joblib')
 
 @name_space.route("/")
 class MainClass(Resource):
@@ -43,7 +43,7 @@ class MainClass(Resource):
 		try: 
 			formData = request.json
 			data = [val for val in formData.values()]
-			prediction = classifier.predict(np.array(data).reshape(1, -1))
+			prediction = regressor.predict(np.array(data).reshape(1, -1))
 			types = { 0: "Iris Setosa", 1: "Iris Versicolour ", 2: "Iris Virginica"}
 			response = jsonify({
 				"statusCode": 200,
